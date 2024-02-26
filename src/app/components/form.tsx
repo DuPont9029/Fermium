@@ -1,25 +1,46 @@
 "use client";
 
-import React, { useState, useContext } from 'react';
-import InputContext from '../context/context.ts';
+import React, { useState } from 'react';
+
 
 
 export default function Form() {
-    const [classe, setClasse] = useState('');
-    const [sezione, setSezione] = useState('');
+    const [classe, setClasse] = useState(4);
+    const [sezione, setSezione] = useState('E');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event: React.FormEvent) => {
         event.preventDefault();
         console.log(`classe: ${classe}, sezione: ${sezione}`);
+
+        const response = await fetch('/api/request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                classe: classe,
+                sezione: sezione,
+                ora: 1,
+                giorno: 1,
+            }),
+        });
+
+        if (!response.ok) {
+            console.error('Errore richiesta durante la richiesta API', await response.text());
+            return;
+        }
+    
+        const data = await response.json();
+        console.log(data); // I risultati della richiesta API
     }
+    
 
     return (
-        <InputContext.Provider value={{ classe, sezione }}>
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
             <form onSubmit={handleSubmit} className="bg-gray-800 text-white p-6 rounded-md w-1/3">
                 <label className="block mb-4">
                     Classe:
-                    <input type="text" value={classe} onChange={e => setClasse(e.target.value)} className="mt-1 block w-full rounded-md bg-gray-700 border-transparent focus:border-gray-500 focus:bg-gray-600 focus:ring-0 text-white" />
+                    <input type="text" value={classe} onChange={e => setClasse(Number(e.target.value))} className="mt-1 block w-full rounded-md bg-gray-700 border-transparent focus:border-gray-500 focus:bg-gray-600 focus:ring-0 text-white" />
                 </label>
                 <label className="block mb-4">
                     Sezione:
@@ -30,6 +51,5 @@ export default function Form() {
                 </div>
             </form>
         </div>
-        </InputContext.Provider>
     );
 }
