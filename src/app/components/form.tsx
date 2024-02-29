@@ -81,7 +81,7 @@ export default function Form() {
                 <Title/>
             </div>
             
-            <form onSubmit={handleSubmit} className="bg-gray-800 text-white p-6 rounded-md w-1/3 mb-4">
+            <form onSubmit={handleSubmit} className="bg-gray-800 text-white p-6 rounded-md w-1/3 mb-4 sm:w-1/2 md:w-1/3">
                 <label className="text-lg font-semibold">
                     Classe:
                     <input type="text" value={classe} onChange={e => setClasse(Number(e.target.value))} className="mt-1 block w-full rounded-md bg-gray-700 border-transparent focus:border-gray-500 focus:bg-gray-600 focus:ring-0 text-white" />
