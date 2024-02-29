@@ -8,11 +8,17 @@ export default function Title() {
         setTitle(getRandomTitle());
     }, []);
 
-   return (
-    <a href="https://github.com/DuPont9029/W.M.S" className="text-inherit no-underline text-5xl font-bold">
-        {title}
-    </a>
-   )
+    return (
+        <div>
+          <a href="https://github.com/DuPont9029/W.M.S">
+            {title}
+          </a>
+        </div>
+      )
+      
+      
+      
+      
 }
 
 function getRandomTitle() {
