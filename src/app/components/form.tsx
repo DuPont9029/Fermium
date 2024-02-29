@@ -1,101 +1,112 @@
 "use client";
 
-import Results from './results';
-import Title from './title';
-import { getDayAndTime } from '../../../functions/gettime';
-import React, { useState } from 'react';
-
-
+import Results from "./results";
+import Title from "./title";
+import { getDayAndTime } from "../../../functions/gettime";
+import React, { useState } from "react";
 
 export default function Form() {
-    const [classe, setClasse] = useState<number | undefined>(undefined);
-    const [sezione, setSezione] = useState('');
-    const [dt, setDt] = useState('');
-    const [dt1, setDt1] = useState('');
+	const [classe, setClasse] = useState<number | undefined>(undefined);
+	const [sezione, setSezione] = useState("");
+	const [dt, setDt] = useState("");
+	const [dt1, setDt1] = useState("");
 
-  
+	const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
+		console.log(`classe: ${classe}, sezione: ${sezione}`);
+		console.log(getDayAndTime());
+		let time: number[] = getDayAndTime();
 
-    const handleSubmit = async(event: React.FormEvent) => {
-        event.preventDefault();
-        console.log(`classe: ${classe}, sezione: ${sezione}`);
-        console.log(getDayAndTime());
-        let time: number[] = getDayAndTime();
+		const response = await fetch("/api/request", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				classe: classe,
+				sezione: sezione,
+				ora: time[0],
+				giorno: time[1],
+			}),
+		});
 
-        
-        const response = await fetch('/api/request', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                classe: classe,
-                sezione: sezione,
-                ora: time[0],
-                giorno: time[1],
-            }),
-        });
+		const response2 = await fetch("/api/request", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				classe: classe,
+				sezione: sezione,
+				ora: time[0] + 1,
+				giorno: time[1],
+			}),
+		});
 
-        const response2 = await fetch('/api/request', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                classe: classe,
-                sezione: sezione,
-                ora: time[0]+1,
-                giorno: time[1],
-            }),
-        });
+		if (!response.ok) {
+			console.error(
+				"Errore richiesta durante la richiesta API",
+				await response.text()
+			);
+			return;
+		}
 
-        if (!response.ok) {
-            console.error('Errore richiesta durante la richiesta API', await response.text());
-            return;
-        }
+		if (!response2.ok) {
+			console.error(
+				"Errore richiesta durante la richiesta API",
+				await response.text()
+			);
+			return;
+		}
 
-        if (!response2.ok) {
-            console.error('Errore richiesta durante la richiesta API', await response.text());
-            return;
-        }
-    
-        let responseText = await response.text(); 
-        let dt = responseText.replace(/\\n/g, ' '); // Sostituisce \n con uno spazio
-        dt = dt.replace(/"/g, ''); // Rimuove le virgolette
-        
-        let responseText2 = await response2.text(); 
-        let dt1 = responseText2.replace(/\\n/g, ' ');// Sostituisce \n con uno spazio
-        dt1 = dt1.replace(/"/g, ''); // Rimuove le virgolette
-        
-        setDt(dt);
-        setDt1(dt1);
-        console.log(dt); // I risultati della richiesta API
-        console.log(dt1);
-        
-    }
-    
+		let responseText = await response.text();
+		let dt = responseText.replace(/\\n/g, " "); // Sostituisce \n con uno spazio
+		dt = dt.replace(/"/g, ""); // Rimuove le virgolette
 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-            <div className='typewriter large-title mb-[5%]'>
-                
-                <Title/>
-            </div>
-            
-            <form onSubmit={handleSubmit} className="bg-gray-800 text-white p-6 rounded-md w-1/3 mb-4 sm:w-1/2 md:w-1/3">
-                <label className="text-lg font-semibold">
-                    Classe:
-                    <input type="text" value={classe} onChange={e => setClasse(Number(e.target.value))} className="mt-1 block w-full rounded-md bg-gray-700 border-transparent focus:border-gray-500 focus:bg-gray-600 focus:ring-0 text-white" />
-                </label>
-                <label className="text-lg font-semibold">
-                    Sezione:
-                    <input type="text" value={sezione} onChange={e => setSezione(e.target.value.toUpperCase())} className="mt-1 block w-full rounded-md bg-gray-700 border-transparent focus:border-gray-500 focus:bg-gray-600 focus:ring-0 text-white" />
-                </label>
-                <div className="flex justify-center">
-                    <input type="submit" value="Submit" className="mt-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
-                </div>
-            </form>
-    
-            {dt && <Results res={dt} res1={dt1}/>}
-        </div>
-    );
+		let responseText2 = await response2.text();
+		let dt1 = responseText2.replace(/\\n/g, " "); // Sostituisce \n con uno spazio
+		dt1 = dt1.replace(/"/g, ""); // Rimuove le virgolette
+
+		setDt(dt);
+		setDt1(dt1);
+		console.log(dt); // I risultati della richiesta API
+		console.log(dt1);
+	};
+
+	return (
+		<div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 gap-10 text-white">
+			<Title />
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col bg-gray-800 p-6 rounded-lg gap-4 md:w-[40%] w-[60%]">
+				<div>
+					<label className="text-lg font-semibold">Classe:</label>
+					<input
+						type="text"
+						value={classe}
+						onChange={(e) => setClasse(Number(e.target.value))}
+						className="block w-full rounded-md bg-gray-700 focus:border-gray-500 focus:bg-gray-600 focus:ring-0 h-8"
+					/>
+				</div>
+				<div>
+					<label className="text-lg font-semibold">Sezione:</label>
+					<input
+						type="text"
+						value={sezione}
+						onChange={(e) =>
+							setSezione(e.target.value.toUpperCase())
+						}
+						className="block w-full rounded-md bg-gray-700 focus:border-gray-500 focus:bg-gray-600 focus:ring-0 h-8"
+					/>
+				</div>
+				<button
+					type="submit"
+					className="p-4 rounded-md shadow-sm text-sm font-medium bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+					Submit
+				</button>
+			</form>
+
+			{dt && <Results res={dt} res1={dt1} />}
+		</div>
+	);
 }

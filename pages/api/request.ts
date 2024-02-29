@@ -1,5 +1,3 @@
-
-
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import cheerio from 'cheerio';
@@ -11,8 +9,6 @@ type RequestBody = {
   ora: number;
   giorno: number;
 };
-
-
 
 export default async function request(req: NextApiRequest, res: NextApiResponse) {
     // Assicurati che il corpo della richiesta sia del tipo atteso
