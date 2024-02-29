@@ -1,5 +1,5 @@
 # TODO:
-- [ ] 0. fix the default usestate value for the input field
+- [x] 0. fix the default usestate value for the input field
 - [x] 1. render the results of the api call in a nice way 
 - [x] 2. implement day and hour detection and conversion in apiable formats, and pass them to the api call
 - [x] 3. for gods sake, fix tailwindcss

@@ -58,12 +58,13 @@ export default function Form() {
             return;
         }
     
-        let responseText = await response.text(); // Rimuove le virgolette
-
+        let responseText = await response.text(); 
         let dt = responseText.replace(/\\n/g, ' '); // Sostituisce \n con uno spazio
+        dt = dt.replace(/"/g, ''); // Rimuove le virgolette
         
-        let responseText2 = await response2.text(); // Rimuove le virgolette
+        let responseText2 = await response2.text(); 
         let dt1 = responseText2.replace(/\\n/g, ' ');// Sostituisce \n con uno spazio
+        dt1 = dt1.replace(/"/g, ''); // Rimuove le virgolette
         
         setDt(dt);
         setDt1(dt1);

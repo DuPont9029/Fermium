@@ -8,22 +8,25 @@ export default function Title() {
         setTitle(getRandomTitle());
     }, []);
 
-    return (
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
-    );
+   return (
+    <a href="https://github.com/DuPont9029/W.M.S" className="text-inherit no-underline text-5xl font-bold">
+        {title}
+    </a>
+   )
 }
 
 function getRandomTitle() {
     const titles: string[] = [
         "Beyond Useless",
-        "German Engenineering",
+        "German Engineering",
         "your techonological revolution",
         "not in the school program",
         "Always up-to-date",
         "No critical bugs?",
         "Next.js is the GOAT",
         "UR LATE?",
-        "<3 KovD3v"
+        "<3 @KovD3v",
+        "chad @Mattiarotelli"
     ];
     const randomIndex = Math.floor(Math.random() * titles.length);
     return titles[randomIndex];
