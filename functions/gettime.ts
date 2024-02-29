@@ -1,6 +1,6 @@
 export function getDayAndTime(): [number, number] {
     const now = new Date();
-    let dayOfWeek = now.getDay(); // Lunedi = 1, Domenica = 7
+    let dayOfWeek = (now.getDay() + 6) % 7; // Lunedi = 1, Domenica = 7
     
     const hour = now.getHours();
     const minutes = now.getMinutes();
