@@ -58,12 +58,18 @@ export default function Form() {
             return;
         }
     
-        const data = await response.json();
-        const data2 = await response2.json();
-        console.log(data); // I risultati della richiesta API
-        console.log(data2);
-        setDt(data)
-        setDt1(data2)
+        let responseText = await response.text(); // Rimuove le virgolette
+
+        let dt = responseText.replace(/\\n/g, ' '); // Sostituisce \n con uno spazio
+        
+        let responseText2 = await response2.text(); // Rimuove le virgolette
+        let dt1 = responseText2.replace(/\\n/g, ' ');// Sostituisce \n con uno spazio
+        
+        setDt(dt);
+        setDt1(dt1);
+        console.log(dt); // I risultati della richiesta API
+        console.log(dt1);
+        
     }
     
 
