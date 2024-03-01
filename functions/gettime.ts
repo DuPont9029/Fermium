@@ -22,7 +22,7 @@ export function getDayAndTime(): [number, number] {
         } else if (hour === 12 && minutes >= 36 || hour === 13 && minutes <= 35) {
             timeSlot = 6;
         } else if (hour === 13 && minutes >= 36 || hour === 14 && minutes <= 30) {
-            timeslot = 7
+            timeSlot = 7
         }
         
         else {
