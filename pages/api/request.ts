@@ -10,6 +10,15 @@ type RequestBody = {
 };
 
 export default async function request(req: NextApiRequest, res: NextApiResponse) {
+    // Aggiungi qui gli headers per disabilitare CORS
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+
     const body = req.body as Partial<RequestBody>;
 
     if (body.classe === undefined || body.sezione === undefined || body.ora === undefined || body.giorno === undefined) {
@@ -60,60 +69,3 @@ export default async function request(req: NextApiRequest, res: NextApiResponse)
         res.status(500).json({ error: 'Errore durante la richiesta API' });
     }
 }
-
-
-
-
-/*
-
-function makeApiRequest() {
-  
-    
-    axios.get(`https://www.itisfermi.edu.it/Orario/Classi/${classe}${sezione}.html`)
-    .then(response => {
-        let html = response.data;
-        let $ = cheerio.load(html);
-        let schedule = [];
-        let rowspan = [];
-
-        $('table tr').each((i, row) => {
-            $(row).find('td').each((j, cell) => {
-                let cellText = $(cell).text().trim();
-                let cellRowspan = $(cell).attr('rowspan');
-
-                if (!schedule[i]) {
-                    schedule[i] = [];
-                }
-
-                // Se la cella è occupata, spostati alla cella successiva
-                while (schedule[i][j]) {
-                    j++;
-                }
-
-                schedule[i][j] = cellText;
-
-                if (cellRowspan && parseInt(cellRowspan) > 1) {
-                    for (let k = 1; k < parseInt(cellRowspan); k++) {
-                        if (!schedule[i + k]) {
-                            schedule[i + k] = [];
-                        }
-                        schedule[i + k][j] = cellText;
-                    }
-                }
-            });
-        });
-
-        console.log(schedule[1][2]);
-    })
-    .catch(error => {
-        console.error(error);
-    });
-*/
-
-
-    /*
-    ! non so se:
-    ! 1. come chiamare l'api
-    ! 2. se la richiesta è andata a buon fine o se ha problemi di cors (lo stesso codice che ho testato non li ha)
-    ! 3. se ci sono altri errori
-    */
