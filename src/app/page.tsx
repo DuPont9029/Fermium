@@ -3,11 +3,9 @@ import Form from "../app/components/form";
 import Results from "../app/components/results";
 
 export default function Home() {
-  return (
-    <div>
-      
-      <Form />
-     
-    </div>
-  );
+	return (
+		<div>
+			<Form />
+		</div>
+	);
 }
