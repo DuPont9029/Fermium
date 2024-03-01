@@ -3,17 +3,33 @@
 import Results from "./results";
 import Title from "./title";
 import { getDayAndTime } from "../../../functions/gettime";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Form() {
-	const [classe, setClasse] = useState<number | undefined>(undefined);
+	const [classe, setClasse] = useState<number>(0);
 	const [sezione, setSezione] = useState("");
 	const [dt, setDt] = useState("");
 	const [dt1, setDt1] = useState("");
 
+	const handleResponse = async (response: Response) => {
+		if (!response.ok) {
+			console.error(
+				"Errore richiesta durante la richiesta API",
+				await response.text()
+			);
+			return;
+		}
+
+		let responseText = await response.text();
+		let dt = responseText.replace(/\\n/g, " "); // Sostituisce \n con uno spazio
+		dt = dt.replace(/"/g, ""); // Rimuove le virgolette
+
+		return dt;
+	};
+
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
-		console.log(`classe: ${classe}, sezione: ${sezione}`);
+		console.log(classe + " " + sezione);
 		console.log(getDayAndTime());
 		let time: number[] = getDayAndTime();
 
@@ -43,32 +59,11 @@ export default function Form() {
 			}),
 		});
 
-		if (!response.ok) {
-			console.error(
-				"Errore richiesta durante la richiesta API",
-				await response.text()
-			);
-			return;
-		}
+		const dt = await handleResponse(response);
+		const dt1 = await handleResponse(response2);
 
-		if (!response2.ok) {
-			console.error(
-				"Errore richiesta durante la richiesta API",
-				await response.text()
-			);
-			return;
-		}
-
-		let responseText = await response.text();
-		let dt = responseText.replace(/\\n/g, " "); // Sostituisce \n con uno spazio
-		dt = dt.replace(/"/g, ""); // Rimuove le virgolette
-
-		let responseText2 = await response2.text();
-		let dt1 = responseText2.replace(/\\n/g, " "); // Sostituisce \n con uno spazio
-		dt1 = dt1.replace(/"/g, ""); // Rimuove le virgolette
-
-		setDt(dt);
-		setDt1(dt1);
+		setDt(dt? dt : "Nessun risultato");
+		setDt1(dt1 ? dt1 : "Nessun risultato");
 		console.log(dt); // I risultati della richiesta API
 		console.log(dt1);
 	};
@@ -83,7 +78,7 @@ export default function Form() {
 					<label className="text-lg font-semibold">Classe:</label>
 					<input
 						type="text"
-						value={classe}
+						value={classe === 0 ? "" : classe}
 						onChange={(e) => setClasse(Number(e.target.value))}
 						className="block w-full rounded-md bg-gray-700 focus:border-gray-500 focus:bg-gray-600 focus:ring-0 h-8"
 					/>
