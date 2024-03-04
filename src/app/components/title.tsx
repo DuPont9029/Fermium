@@ -10,7 +10,7 @@ export default function Title() {
 
     return (
         <div>
-          <a href="https://github.com/DuPont9029/W.M.S">
+          <a href="https://github.com/DuPont9029/Fermium">
             {title}
           </a>
         </div>
