@@ -25,7 +25,7 @@ export function getDayAndTime(): [number, number] {
             timeSlot = 7
         } else {
             timeSlot = 1;
-            dayOfWeek = 1;
+            dayOfWeek = dayOfWeek++;
         }
     }
 
