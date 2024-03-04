@@ -23,9 +23,12 @@ export function getDayAndTime(): [number, number] {
             timeSlot = 6;
         } else if (hour === 13 && minutes >= 36 || hour === 14 && minutes <= 30) {
             timeSlot = 7
-        } else {
+        } else if (dayOfWeek != 5) {  //se non è venerdi  
+            timeSlot = 1;    // se stai fuori dall'orario scolastico ti da la prima ora del giorno successivo
+            dayOfWeek = dayOfWeek + 1;
+        } else {    
+            dayOfWeek = 1;
             timeSlot = 1;
-            dayOfWeek = dayOfWeek++;
         }
     }
 
