@@ -2,6 +2,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 
+   
+
+
 type RequestBody = {
   classe: number;
   sezione: string;
@@ -11,13 +14,21 @@ type RequestBody = {
 
 export default async function request(req: NextApiRequest, res: NextApiResponse) {
     // Aggiungi qui gli headers per disabilitare CORS
+
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
     res.setHeader(
-      'Access-Control-Allow-Headers',
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
     );
+
+    if (req.method === 'OPTIONS') {
+        res.setHeader('Access-Control-Allow-Origin', '*'); // Adjust this to be more restrictive
+        res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+        return res.status(204).end();
+      }
 
     const body = req.body as Partial<RequestBody>;
 
