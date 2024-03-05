@@ -9,7 +9,9 @@ export function getDayAndTime(): [number, number] {
     let timeSlot = 1;
  
     if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-        if (hour === 8 && minutes >= 0 || hour === 8 && minutes <= 55) {
+        if (hour > 0 && hour < 8) {
+            timeSlot = 1;
+        } else if (hour === 8 && minutes >= 0 || hour === 8 && minutes <= 55) {
             timeSlot = 1;
         } else if (hour === 8 && minutes >= 56 || hour === 9 && minutes <= 50) {
             timeSlot = 2;
