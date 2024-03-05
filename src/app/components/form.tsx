@@ -21,6 +21,9 @@ export default function Form() {
         console.log(getDayAndTime());
         let time: number[] = getDayAndTime();
 
+        //! removed PUBLIC api usage, now using PRIVATE api, 
+        //! if you are reading this and you want to use the api the code is in the comments below and in the documentation
+        /* 
         
         const response = await fetch('/api/request', {
             method: 'POST',
@@ -36,6 +39,34 @@ export default function Form() {
         });
 
         const response2 = await fetch('/api/request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                classe: classe,
+                sezione: sezione,
+                ora: time[0]+1,
+                giorno: time[1],
+            }),
+        });
+
+        */
+
+        const response = await fetch('/api/privateapi', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                classe: classe,
+                sezione: sezione,
+                ora: time[0],
+                giorno: time[1],
+            }),
+        });
+
+        const response2 = await fetch('/api/privateapi', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
