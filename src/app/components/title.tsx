@@ -32,7 +32,8 @@ function getRandomTitle() {
         "Next.js is the GOAT",
         "UR LATE?",
         "<3 @KovD3v",
-        "chad @Mattiarotelli"
+        "chad @Mattiarotelli",
+        "$ @metoncode €"
     ];
     const randomIndex = Math.floor(Math.random() * titles.length);
     return titles[randomIndex];
