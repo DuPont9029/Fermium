@@ -1,5 +1,5 @@
 
-# Documentazione API
+# API documentation
 
 This API accepts HTTP POST requests to the URL `https://fermium.vercel.app/api/request`. Requests must include a JSON body with the following fields: `classe` (`class`), `sezione` (`section`), `ora` (`hour`), `giorno` (`day`).
 
@@ -138,7 +138,26 @@ curl -X POST -H "Accept: */*" -H "Content-Type: application/json" -d '{
 ## JavaScript (frontend)
 
 ```javascript
-console.log("work in progress")
+let headersList = {
+ "Accept": "*/*",
+ "Content-Type": "application/json"
+}
+
+let bodyContent = JSON.stringify({
+        "classe": 4,
+        "sezione": "E",
+        "ora": 2,
+        "giorno": 1
+});
+
+let response = await fetch("https://fermium.vercel.app/api/request", { 
+  method: "POST",
+  body: bodyContent,
+  headers: headersList
+});
+
+let data = await response.text();
+console.log(data);
 ```
 
 ! ! ! replace the values of `classe`, `sezione`, `ora` and `giorno` with the desired values.
@@ -150,7 +169,7 @@ console.log("work in progress")
 - [x] 1. render the results of the api call in a nice way 
 - [x] 2. implement day and hour detection and conversion in apiable formats, and pass them to the api call
 - [x] 3. for gods sake, fix tailwindcss
-- [ ] 4. fix the frontend javascript code
+- [x] 4. fix the frontend javascript code
 - [ ] 5. ? general code cleanup ?
 
 
