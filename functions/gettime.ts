@@ -1,12 +1,14 @@
 
-export function getDayAndTime(): [number, number] {
-    const now = new Date();
-    let dayOfWeek = now.getDay(); // Lunedi = 1, Domenica = 7
+export function getDayAndTime(): [number, number, boolean] {
+    const now = new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" });
+    let dayOfWeek = new Date(now).getDay(); // Lunedi = 1, Domenica = 7
     
-    const hour = now.getHours();
-    const minutes = now.getMinutes();
+    const hour = new Date(now).getHours();
+    const minutes = new Date(now).getMinutes();
     
     let timeSlot = 1;
+
+    let itIsNow: boolean = true;
  
     if (dayOfWeek >= 1 && dayOfWeek <= 5) {
         if (hour > 0 && hour < 8) {
@@ -28,15 +30,21 @@ export function getDayAndTime(): [number, number] {
         } else if (dayOfWeek != 5) {  //se non è venerdi  
             timeSlot = 1;    // se stai fuori dall'orario scolastico ti da la prima ora del giorno successivo
             dayOfWeek = dayOfWeek + 1;
+            itIsNow = false;
         } else {    
             dayOfWeek = 1;
             timeSlot = 1;
+            itIsNow = false;
         }
     }
 
     else {
         dayOfWeek = 1;
         timeSlot = 1;
+        itIsNow = false;
     }
-    return [timeSlot, dayOfWeek];
+
+    
+    return [timeSlot, dayOfWeek, itIsNow];
+
 }

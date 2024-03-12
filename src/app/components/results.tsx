@@ -1,5 +1,5 @@
-export default function Results({res, res1}: {res: string, res1: string}) {
-    return (
+export default function Results({res, res1, status }: {res: string, res1: string, status: boolean}) {
+    if (status === true) { return (
         <form className="bg-yellow-800 text-white p-6 rounded-md w-full sm:w-1/3">
             <div className="mt-1 block w-full rounded-md bg-yellow-700 border-transparent focus:border-yellow-500 focus:bg-yellow-600 focus:ring-0 text-white">
                 <h1>{"Ora attuale: " + res}</h1>
@@ -9,20 +9,15 @@ export default function Results({res, res1}: {res: string, res1: string}) {
             </div>
         </form>
     );
+    } else if (status === false) { return (
+        <form className="bg-green-800 text-white p-6 rounded-md w-full sm:w-1/3">
+            <div className="mt-1 block w-full rounded-md bg-green-700 border-transparent focus:border-yellow-500 focus:bg-yellow-600 focus:ring-0 text-white">
+                <h1>{"ora successiva: " + res}</h1>
+            </div>
+            <div className="mt-1 block w-full rounded-md bg-green-700 border-transparent focus:border-yellow-500 focus:bg-yellow-600 focus:ring-0 text-white">
+                <h1>{"ora dopo: " + res1}</h1>
+            </div>
+        </form>
+    );
+    }
 }
-
-
-/*
-    <label className="block mb-4">
-            Classe:
-            <input type="text" className="mt-1 block w-full rounded-md bg-yellow-700 border-transparent focus:border-yellow-500 focus:bg-yellow-600 focus:ring-0 text-white" />
-        </label>
-        <label className="block mb-4">
-            Sezione:
-            <input type="text" className="mt-1 block w-full rounded-md bg-yellow-700 border-transparent focus:border-yellow-500 focus:bg-yellow-600 focus:ring-0 text-white" />
-        </label>
-        <div className="flex justify-center">
-            <input type="submit" value="Submit" className="mt-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500" />
-        </div>
-
-*/ 

@@ -8,10 +8,11 @@ import React, { useState } from 'react';
 
 
 export default function Form() {
-    const [classe, setClasse] = useState<number | "" | undefined>(undefined);
+    const [classe, setClasse] = useState<number | "">("");
     const [sezione, setSezione] = useState('');
     const [dt, setDt] = useState('');
     const [dt1, setDt1] = useState('');
+    const [now, setNow] = useState(true);
 
   
 
@@ -19,39 +20,8 @@ export default function Form() {
         event.preventDefault();
         console.log(`classe: ${classe}, sezione: ${sezione}`);
         console.log(getDayAndTime());
-        let time: number[] = getDayAndTime();
+        let time: [number, number, boolean] = getDayAndTime();
 
-        //! removed PUBLIC api usage, now using PRIVATE api, 
-        //! if you are reading this and you want to use the api the code is in the comments below and in the documentation
-        /* 
-        
-        const response = await fetch('/api/request', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                classe: classe,
-                sezione: sezione,
-                ora: time[0],
-                giorno: time[1],
-            }),
-        });
-
-        const response2 = await fetch('/api/request', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                classe: classe,
-                sezione: sezione,
-                ora: time[0]+1,
-                giorno: time[1],
-            }),
-        });
-
-        */
 
         const response = await fetch('/api/privateapi', {
             method: 'POST',
@@ -99,8 +69,10 @@ export default function Form() {
         
         setDt(dt);
         setDt1(dt1);
+        setNow(time[2])
         console.log(dt); // I risultati della richiesta API
         console.log(dt1);
+        console.log(now)
         
     }
     
@@ -147,7 +119,7 @@ export default function Form() {
                 </div>
             </form>
     
-            {dt && <Results res={dt} res1={dt1}/>}
+            {dt && <Results res={dt} res1={dt1} status={now}/>}
         </div>
     );
 }
