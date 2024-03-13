@@ -7,10 +7,13 @@ export function getDayAndTime(): [number, number, boolean] {
     const minutes = new Date(now).getMinutes();
     
     let timeSlot = 1;
-
-    let itIsNow: boolean = true;
+    let itIsNow: boolean;
+    
  
     if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+
+        itIsNow = true;
+        
         if (hour > 0 && hour < 8) {
             timeSlot = 1;
         } else if (hour === 8 && minutes >= 0 || hour === 8 && minutes <= 55) {
