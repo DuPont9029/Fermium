@@ -23,7 +23,7 @@ export function getDayAndTime(): [number, number, boolean, debug] {
 
         if (dayOfWeek >= 1 && dayOfWeek <= 5) {
 
-            if (hour > 0 && hour < 8) {
+            if (hour >= 0 && hour < 8) {
                 timeSlot = 1;
                 debug = "case 1: 0-8";
                 itIsNow = false;
