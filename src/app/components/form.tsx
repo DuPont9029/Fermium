@@ -20,7 +20,7 @@ export default function Form() {
         event.preventDefault();
         console.log(`classe: ${classe}, sezione: ${sezione}`);
         console.log(getDayAndTime());
-        let time: [number, number, boolean] = getDayAndTime();
+        let time: [number, number, boolean, string] = getDayAndTime();
 
 
         const response = await fetch('/api/privateapi', {
@@ -72,7 +72,8 @@ export default function Form() {
         setNow(time[2])
         console.log(dt); // I risultati della richiesta API
         console.log(dt1);
-        console.log(now)
+        console.log(now);
+        console.log(time[3])
         
     }
     

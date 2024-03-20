@@ -170,7 +170,10 @@ console.log(data);
 - [x] 2. implement day and hour detection and conversion in apiable formats, and pass them to the api call
 - [x] 3. for gods sake, fix tailwindcss
 - [x] 4. fix the frontend javascript code
-- [ ] 5. ? general code cleanup ?
+- [x] 5. ? general code cleanup ?
+- [ ] 6. add loading component while waiting for the api response
+- [ ] 7. add error handling for the api call with error component
+
 
 
 
