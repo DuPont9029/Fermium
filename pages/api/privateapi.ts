@@ -12,7 +12,7 @@ type RequestBody = {
   giorno: number;
 };
 
-export default async function privateapi(req: NextApiRequest, res: NextApiResponse) {
+export async function privateapi(req: NextApiRequest, res: NextApiResponse) {
     
 
     const body = req.body as Partial<RequestBody>;
