@@ -63,8 +63,8 @@ export async function privateapi(req: NextApiRequest, res: NextApiResponse) {
         res.status(200).json(result);
    
  } catch (error) {
-        const statuscode = error.response.status;
-        res.status(statuscode).json({ error: `Errore durante la richiesta API + ${error}` });
+        const stat = error.response.status;
+        res.status(stat).json({ error: `Errore durante la richiesta API + ${error}` });
     }
 
 }
