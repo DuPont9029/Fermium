@@ -12,8 +12,9 @@ type RequestBody = {
   giorno: number;
 };
 
-export async function privateapi(req: NextApiRequest, res: NextApiResponse) {
-    
+export default async function privateapi(req: NextApiRequest, res: NextApiResponse) {
+    // Aggiungi qui gli headers per disabilitare CORS
+
 
     const body = req.body as Partial<RequestBody>;
 
@@ -61,10 +62,7 @@ export async function privateapi(req: NextApiRequest, res: NextApiResponse) {
         });
         const result = schedule[ora][giorno];
         res.status(200).json(result);
-   
- } catch (error:any) {
-        const stat = error.response.status;
-        res.status(stat).json({ error: `Errore durante la richiesta API + ${error}` });
+    } catch (error) {
+        res.status(500).json({ error: 'Errore durante la richiesta API' });
     }
-
 }
