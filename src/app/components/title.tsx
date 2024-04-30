@@ -25,7 +25,7 @@ function getRandomTitle() {
     const titles: string[] = [
         "Beyond Useless",
         "German Engineering",
-        "your techonological revolution",
+        "your technological revolution",
         "not in the school program",
         "Always up-to-date",
         "No critical bugs?",
