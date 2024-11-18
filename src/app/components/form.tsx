@@ -55,7 +55,7 @@ export default function Form() {
         }
 
         if (!response2.ok) {
-            console.error('Errore richiesta durante la richiesta API (form r2)', await response.text());
+            console.error('Errore richiesta durante la richiesta API (form r2)', await response2.text());
             return;
         }
     
