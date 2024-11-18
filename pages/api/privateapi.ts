@@ -25,7 +25,7 @@ export default async function privateapi(req: NextApiRequest, res: NextApiRespon
 
     const { classe, sezione, ora, giorno } = body;
 
-    try {
+   // try {
         const response = await axios.get(`https://www.itisfermi.edu.it/Orario/Classi/${classe}${sezione}.html`);
         const dom = new JSDOM(response.data);
         const $ = dom.window.document.querySelector.bind(dom.window.document);
@@ -62,7 +62,8 @@ export default async function privateapi(req: NextApiRequest, res: NextApiRespon
         });
         const result = schedule[ora][giorno];
         res.status(200).json(result);
-    } catch (error) {
+   /* } catch (error) {
         res.status(500).json({ error: 'Errore durante la richiesta API' });
     }
+    */
 }
