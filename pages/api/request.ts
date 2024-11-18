@@ -77,6 +77,6 @@ export default async function request(req: NextApiRequest, res: NextApiResponse)
         const result = schedule[ora][giorno];
         res.status(200).json(result);
     } catch (error) {
-        res.status(500).json({ error: 'Errore durante la richiesta API' });
+        res.status(500).json({ error: 'Errore durante la richiesta API (request.js)' });
     }
 }
