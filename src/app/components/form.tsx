@@ -50,12 +50,12 @@ export default function Form() {
         });
 
         if (!response.ok) {
-            console.error('Errore richiesta durante la richiesta API', await response.text());
+            console.error('Errore richiesta durante la richiesta API (form r1)', await response.text());
             return;
         }
 
         if (!response2.ok) {
-            console.error('Errore richiesta durante la richiesta API', await response.text());
+            console.error('Errore richiesta durante la richiesta API (form r2)', await response.text());
             return;
         }
     
