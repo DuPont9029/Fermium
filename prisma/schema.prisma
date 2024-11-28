@@ -1,0 +1,15 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:@localhost:3306/testnext"
+}
+// https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+// well its local so no need to use env variables
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Utenti {
+  username String  @id @db.VarChar(25) //id quando si vuole fare una chiave primaria
+  nome     String  @db.Text
+  @@map("utenti")
+}
